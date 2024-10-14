@@ -113,10 +113,10 @@ export default function ExamCard() {
   return (
     <div>
       {currentexam ? (
-        <div className="flex flex-col h-screen p-4">
+        <div className="flex flex-col h-screen p-4 bg-gray-100">
           <div className="flex justify-between items-center">
             <h1 className="text-5xl">{currentexam.examtitle}</h1>
-            <p className="border-blue-500 border text-blue-500 shadow-md rounded-md px-3 py-1">
+            <p className=" bg-white text-blue-500 shadow-md rounded-md px-3 py-1">
               <i className="fas fa-calendar-alt"></i> Exam Date: {currentexam.examDate}
             </p>
           </div>
@@ -132,12 +132,17 @@ export default function ExamCard() {
                   {calculateDurationInMinutes(currentexam.starttime, currentexam.endtime)}
                 </p>
               </div>
-
-              <ul className="list-disc pl-5 mb-4">
+<div className="rules">
+  <p className="font-bold">
+    Rules for the Exam
+  </p>
+<ul className="list-disc pl-5 mb-4">
                 {rules.map((rule, index) => (
                   <li key={index}>{rule}</li>
                 ))}
               </ul>
+</div>
+              
               <div className="bottomlink flex justify-end gap-5 items-center">
                 {examStatus === "not_started" && (
                   <p className="text-red-500">The exam has not started yet.</p>

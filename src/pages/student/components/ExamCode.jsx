@@ -71,7 +71,7 @@ export default function ExamCode() {
     // console.log('Exam : ',exam);
 
     // <Navigate to={`/${examcode}`}/>
-    navigate(`${examcode}`)
+    navigate(`examcard/${examcode}`)
     
 
   };
