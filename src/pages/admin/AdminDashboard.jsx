@@ -1,12 +1,11 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import male_avatar from "../../assets/male_avatar.svg";
-import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   return (
     <div className="dashboard flex bg-gray-100 h-screen">
-      <aside className="w-64 bg-white py-5">
+      <aside className="w-56 bg-white py-5">
         <div className="flex flex-col items-center">
           <img src={male_avatar} alt="User Avatar" className="mb-4 max-w-28 " />
           <h2 className="text-xl mb-4">Dashboard</h2>
@@ -23,7 +22,7 @@ const AdminDashboard = () => {
                   }`
                 }
               >
-                <i class="fas fa-graduation-cap mx-2"></i> Student
+                <i className="fas fa-graduation-cap mx-2"></i> Student
               </NavLink>
             </li>
             <li>
@@ -35,14 +34,18 @@ const AdminDashboard = () => {
                   }`
                 }
               >
-                <i class="fas fa-chalkboard-user mx-2 "></i> Teacher
+                <i className="fas fa-chalkboard-user mx-2 "></i> Teacher
               </NavLink>
             </li>
           </ul>
         </nav>
       </aside>
 
-      <main className="flex-1 p-5">
+      <main className="flex-1">
+        <div className="flex justify-between bg-white p-4 items-center">
+          <h1 className="text-xl">Exam Sytem</h1>
+          <img className="w-14" src={male_avatar} alt="" />
+        </div>
         <Outlet />
       </main>
     </div>

@@ -8,6 +8,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import ProtectedGaurd from "./utilities/ProtectedGaurd";
 import Student from "./pages/admin/components/Student";
 import Teacher from "./pages/admin/components/Teacher";
+import AddStudent from "./pages/admin/components/AddStudent";
 function App() {
   return (
     <Routes>
@@ -15,7 +16,9 @@ function App() {
       <Route element={<ProtectedGaurd />}>
         <Route path="admin/*" element={<AdminDashboard />}>
             <Route path="student" element={<Student />} />
+            <Route path="student/add" element={<AddStudent />} />
             <Route path="teacher" element={<Teacher />} />
+
         </Route>
         <Route path="teacher/*" element={<TeacherDashboard />} />
         <Route path="student/*" element={<StudentDashboard />} />
