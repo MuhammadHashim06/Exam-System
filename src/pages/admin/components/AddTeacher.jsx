@@ -1,13 +1,14 @@
 
 
-import React, { useState } from "react";
+import { useState } from "react";
+
 export default function AddTeacher() {
-  const [studentData, setStudentData] = useState({
+  const [teacherData, setTeacherData] = useState({
     name: "",
     father: "",
     email: "",
     password: "",
-    grade: "",
+    subject: "",
     phoneNumber: "",
     address: "",
     status: "",
@@ -17,7 +18,7 @@ export default function AddTeacher() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setStudentData((prevData) => ({
+    setTeacherData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -25,14 +26,14 @@ export default function AddTeacher() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New Student Added:", studentData);
+    console.log("New Student Added:", teacherData);
     // Reset form fields
-    setStudentData({
+    setTeacherData({
       name: "",
       father: "",
       email: "",
       password: "",
-      grade: "",
+      subject: "",
       phoneNumber: "",
       address: "",
       status: "",
@@ -61,7 +62,7 @@ export default function AddTeacher() {
                 <label htmlFor="name">Name </label>
                 <input
                   name="name"
-                  value={studentData.name}
+                  value={teacherData.name}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -75,7 +76,7 @@ export default function AddTeacher() {
                 <label htmlFor="father">Father/Guardian</label>
                 <input
                   name="father"
-                  value={studentData.father}
+                  value={teacherData.father}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -91,7 +92,7 @@ export default function AddTeacher() {
                 <label htmlFor="email">Email </label>
                 <input
                   name="email"
-                  value={studentData.email}
+                  value={teacherData.email}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="email"
@@ -105,7 +106,7 @@ export default function AddTeacher() {
                 <label htmlFor="password">Password</label>
                 <input
                   name="password"
-                  value={studentData.password}
+                  value={teacherData.password}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="password"
@@ -118,14 +119,14 @@ export default function AddTeacher() {
             <tr>
               <td>
                 <div className="flex flex-col gap-2" >
-                <label htmlFor="grade">Grade </label>
+                <label htmlFor="subject">subject </label>
                 <input
-                  name="grade"
-                  value={studentData.grade}
+                  name="subject"
+                  value={teacherData.subject}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
-                  id="grade"
+                  id="subject"
                   required
                 />
                 </div>
@@ -135,7 +136,7 @@ export default function AddTeacher() {
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input
                   name="phoneNumber"
-                  value={studentData.phoneNumber}
+                  value={teacherData.phoneNumber}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -151,7 +152,7 @@ export default function AddTeacher() {
                 <label htmlFor="address">Address </label>
                 <input
                   name="address"
-                  value={studentData.address}
+                  value={teacherData.address}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -165,7 +166,7 @@ export default function AddTeacher() {
                 <label htmlFor="status">Status</label>
                 <input
                   name="status"
-                  value={studentData.status}
+                  value={teacherData.status}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -182,7 +183,7 @@ export default function AddTeacher() {
               <td>
                 <input
                   name="className"
-                  value={studentData.className}
+                  value={teacherData.className}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -196,7 +197,7 @@ export default function AddTeacher() {
               <td>
                 <input
                   name="cnic"
-                  value={studentData.cnic}
+                  value={teacherData.cnic}
                   onChange={handleChange}
                   className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
@@ -222,7 +223,7 @@ export default function AddTeacher() {
 }
 
 {
-  /* {Object.keys(studentData).map((key) => (
+  /* {Object.keys(teacherData).map((key) => (
               <div key={key} className="mb-4">
                 <label className="block text-gray-700 mb-1 capitalize" htmlFor={key}>
                   {key.replace(/([A-Z])/g, ' $1')}
@@ -231,7 +232,7 @@ export default function AddTeacher() {
                   type={key === 'password' ? 'password' : 'text'}
                   id={key}
                   name={key}
-                  value={studentData[key]}
+                  value={teacherData[key]}
                   onChange={handleChange}
                   required
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"

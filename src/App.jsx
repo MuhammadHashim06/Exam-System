@@ -10,6 +10,7 @@ import Student from "./pages/admin/components/Student";
 import Teacher from "./pages/admin/components/Teacher";
 import AddTeacher from "./pages/admin/components/AddTeacher";
 import AddStudent from "./pages/admin/components/AddStudent";
+import StudentDetail from "./pages/admin/components/StudentDetail";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="" element={<Navigate to="student" />} />
           <Route path="student/*" element={<Student />} />
           <Route path="student/add" element={<AddStudent />} />
+          <Route path="student/edit/:id" element={<AddStudent />} />
+          <Route path="student/detail/:id" element={<StudentDetail />} />
           <Route path="teacher/*" element={<Teacher />} />
           <Route path="teacher/add" element={<AddTeacher />} />
         </Route>

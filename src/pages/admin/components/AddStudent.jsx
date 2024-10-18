@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import{ useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function AddStudent() {
+
+  const {id}= useParams()
+
   const [studentData, setStudentData] = useState({
     name: "",
     father: "",
@@ -39,6 +43,14 @@ export default function AddStudent() {
       //   cnic: '',
     });
   };
+  
+  useEffect(() => {
+    if(id!=undefined){
+    console.log(id);
+    }
+  
+  }, []);
+  
 
   return (
     <div className="h-4/5 overflow-y-auto">

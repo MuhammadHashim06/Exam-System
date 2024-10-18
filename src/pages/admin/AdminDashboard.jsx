@@ -1,8 +1,8 @@
-import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import male_avatar from "../../assets/male_avatar.svg";
 
 const AdminDashboard = () => {
+  
   return (
     <div className="dashboard flex bg-gray-100 h-screen">
       <aside className="w-56 bg-white py-5">
