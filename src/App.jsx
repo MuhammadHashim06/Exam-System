@@ -25,6 +25,8 @@ function App() {
           <Route path="student/detail/:id" element={<StudentDetail />} />
           <Route path="teacher/*" element={<Teacher />} />
           <Route path="teacher/add" element={<AddTeacher />} />
+          <Route path="teacher/edit/:id" element={<AddStudent />} />
+          <Route path="teacher/detail/:id" element={<StudentDetail />} />
         </Route>
         <Route path="teacher/*" element={<TeacherDashboard />} />
         <Route path="student/*" element={<StudentDashboard />} />
