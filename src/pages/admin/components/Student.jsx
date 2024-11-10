@@ -10,7 +10,7 @@ const sampleStudents = [
   },
   {
     id: 2,
-    name: "Bob Smith",
+    name: "Bob Smith",  
     email: "bobsmith@gmail.com",
     class: "4",
     status: "Inactive",

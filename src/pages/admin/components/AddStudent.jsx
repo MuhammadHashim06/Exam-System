@@ -38,8 +38,16 @@ export default function AddStudent() {
       return; // Prevent submission if not valid
     }
 
+    const userdata = JSON.parse(sessionStorage.getItem('userdata'))
+    const token = userdata.token
     try {
-      const response = await axios.post('http://localhost:5000/addstudent', studentData);
+      const response = await axios.post('http://localhost:5000/addstudent', studentData, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Include the JWT here
+        },
+      });
       console.log('status : ',response.status);
       if(response.status=='201'){
         console.log("New Student Added:", response.data);

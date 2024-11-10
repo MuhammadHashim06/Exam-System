@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios"; // Import Axios for API calls
+import { useNavigate } from "react-router-dom";
 
 export default function AddTeacher() {
+  const navigate = useNavigate();
   const [teacherData, setTeacherData] = useState({
     name: "",
     father: "",
@@ -25,10 +27,10 @@ export default function AddTeacher() {
     e.preventDefault();
     try {
       // Add API call to create user and teacher
-      const response = await axios.post('http://localhost:5000/addteacher', {
+      const response = await axios.post("http://localhost:5000/addteacher", {
         email: teacherData.email,
         password: teacherData.password,
-        role: 'teacher', // Setting the role as teacher
+        role: "teacher", // Setting the role as teacher
         guardian: teacherData.father,
         phonenumber: teacherData.phoneNumber,
         address: teacherData.address,
@@ -50,9 +52,10 @@ export default function AddTeacher() {
       });
 
       // Optionally, show a success message here
-
+      navigate("/admin/teacher");
     } catch (error) {
       console.error("Error adding teacher:", error);
+      navigate("/admin/teacher");
       // Optionally, show an error message to the user
     }
   };
