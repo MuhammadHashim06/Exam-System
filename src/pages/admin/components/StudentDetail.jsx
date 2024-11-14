@@ -88,22 +88,31 @@
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function StudentDetail() {
-  const { id } = useParams(); // Get the student ID from the URL
+  const { id } = useParams(); 
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const handleDelete = (id) => {
-    console.log(`Delete : ${id}`);
-    // Add your deletion logic here
+  const navigate = new useNavigate();
+  const handleDelete = async (id) => {
+    try {
+      let res = await axios.delete(`http://localhost:5000/deletestudent/${id}`);
+      if (res.status == 200) {
+        navigate("/admin/student");
+      }
+    } catch (error) {
+      console.error("Error Deleting student details:", error);
+    } finally {
+      navigate("/admin/student");
+    }
   };
 
   const onUpdate = (id) => {
+    navigate(`/admin/student/edit/${id}`);
     console.log(`Update : ${id}`);
-    // Add your update logic here (e.g., redirect to edit form)
   };
 
   // Fetch student details
@@ -152,7 +161,7 @@ export default function StudentDetail() {
           </td>
         </tr>
         <tr>
-        <td>
+          <td>
             <strong>Email:</strong>
           </td>
           <td>
@@ -160,7 +169,7 @@ export default function StudentDetail() {
           </td>
         </tr>
         <tr>
-        <td>
+          <td>
             <strong>Grade:</strong>
           </td>
           <td>
@@ -170,40 +179,40 @@ export default function StudentDetail() {
         <tr>
           {" "}
           <td>
-          <strong>Phone Number:</strong>
+            <strong>Phone Number:</strong>
           </td>
           <td>
             <p className="text-gray-700">{student.student.phonenumber}</p>
           </td>
         </tr>
         <tr>
-        <td>
-        <strong>Address:</strong>
+          <td>
+            <strong>Address:</strong>
           </td>
           <td>
             <p className="text-gray-700">{student.student.address}</p>
           </td>
         </tr>
         <tr>
-        <td>
-        <strong>Status:</strong>
+          <td>
+            <strong>Status:</strong>
           </td>
           <td>
             <p className="text-gray-700"> {student.student.status}</p>
           </td>
         </tr>
       </table>
-      
+
       <div className="mt-5">
         <button
           className="mr-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={() => onUpdate(student.id)}
+          onClick={() => onUpdate(student.student._id)}
         >
           Update Student
         </button>
         <button
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          onClick={() => handleDelete(student.id)}
+          onClick={() => handleDelete(student.student._id)}
         >
           Delete Student
         </button>
