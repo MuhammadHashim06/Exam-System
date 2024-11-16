@@ -116,7 +116,8 @@ export default function Student() {
     try {
       const response = await axios.get("http://localhost:5000/getallstudents"); // API endpoint
       setSampleStudents(response.data.students); // Set the fetched students to state
-    } catch (err) {
+    } catch (error) {
+      console.error("Error fetching teacher data:", error);
       setError("Failed to fetch students."); // Handle API errors
     } finally {
       setLoading(false); // Set loading to false after API call

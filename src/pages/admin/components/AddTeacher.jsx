@@ -236,8 +236,17 @@ export default function TeacherForm() {
     if (id) {
       // Fetch teacher data if editing
       axios
-        .get(`http://localhost:5000/teacher/${id}`)
-        .then((response) => setTeacherData(response.data))
+        .get(`http://localhost:5000/viewteacher/${id}`)
+        .then((response) => setTeacherData({
+          name: response.data.teacher.name,
+          guardian: response.data.teacher.guardian,
+          email: response.data.user.email,
+          password: response.data.user.password,
+          subject: response.data.teacher.subject,
+          phonenumber: response.data.teacher.phonenumber,
+          address: response.data.teacher.address,
+          status: response.data.teacher.status,
+        }))
         .catch((error) => console.error("Error fetching teacher data:", error));
     }
   }, [id]);

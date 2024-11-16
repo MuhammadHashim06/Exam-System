@@ -87,9 +87,12 @@ export default function Teacher() {
   function handleAddTeacher() {
     navigate("add");
   }
-
+  function TeacherDetail(id) {
+    console.log("Teacher detail: ", id);
+    navigate(`detail/${id}`);
+  }
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -121,6 +124,7 @@ export default function Teacher() {
               <tr
                 key={teacher._id}
                 className="hover:bg-gray-50 hover:cursor-pointer"
+                onClick={() => TeacherDetail(teacher._id)}
               >
                 <td className="p-2">{teacher._id}</td>
                 <td className="p-2">{teacher.name}</td>
