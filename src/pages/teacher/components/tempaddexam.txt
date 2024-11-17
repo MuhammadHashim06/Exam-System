@@ -1,0 +1,428 @@
+// import { useState } from 'react';
+// import './AddExam.css'
+// function AddExam() {
+//     // State for exam details
+//     const [examDetails, setExamDetails] = useState({
+//         name: '',
+//         description: '',
+//         startTime: '',
+//         endTime: '',
+//         examDate: '',
+//         examCode: '',
+//     });
+
+
+//     // State for questions
+//     const [questions, setQuestions] = useState([]);
+//     const [currentQuestion, setCurrentQuestion] = useState({ text: '', answer: '' });
+
+//     // Evaluation method state
+//     const [evaluationMethod, setEvaluationMethod] = useState('pdf');
+//     const [uploadedPdf, setUploadedPdf] = useState(null); // For the PDF upload method
+//     const [chapterQuestions, setChapterQuestions] = useState([]); // Dropdown chapter questions
+//     const [chapter, setchapter] = useState('1')
+
+//     const data = {
+//         "chapters": [
+//             {
+//                 "title": "Introduction to Programming",
+//                 "questions": [
+//                     "What is the difference between a compiler and an interpreter?",
+//                     "Explain the concept of variables and data types in programming.",
+//                     "What are the basic control structures in most programming languages?",
+//                     "What is the purpose of debugging in software development?",
+//                     "Define the term ‘algorithm’. How is it related to programming?"
+//                 ]
+//             },
+//             {
+//                 "title": "Data Structures",
+//                 "questions": [
+//                     "What is the difference between an array and a linked list?",
+//                     "Explain the concept of a stack and provide a real-world example where it is used.",
+//                     "What is the Big-O notation, and why is it important in analyzing algorithms?",
+//                     "Describe the different types of trees used in computer science.",
+//                     "What is a hash table, and how does it work?"
+//                 ]
+//             },
+//             {
+//                 "title": "Object-Oriented Programming (OOP)",
+//                 "questions": [
+//                     "What are the four main principles of Object-Oriented Programming?",
+//                     "How is inheritance different from composition in OOP?",
+//                     "Explain polymorphism with an example.",
+//                     "What is encapsulation, and why is it important in OOP?",
+//                     "What is an abstract class, and how does it differ from an interface?"
+//                 ]
+//             },
+//             {
+//                 "title": "Databases",
+//                 "questions": [
+//                     "What is a relational database?",
+//                     "Explain the difference between SQL and NoSQL databases.",
+//                     "What is normalization, and why is it important in database design?",
+//                     "What is an SQL join? Name and explain the different types of joins.",
+//                     "What is the ACID property in database transactions?"
+//                 ]
+//             },
+//             {
+//                 "title": "Web Development",
+//                 "questions": [
+//                     "What are the key differences between front-end and back-end development?",
+//                     "Explain the role of HTML, CSS, and JavaScript in building a web page.",
+//                     "What is a RESTful API, and how is it used in web development?",
+//                     "What is the difference between client-side and server-side rendering?",
+//                     "What is a Content Management System (CMS), and why is it useful for websites?"
+//                 ]
+//             },
+//             {
+//                 "title": "Algorithms and Problem Solving",
+//                 "questions": [
+//                     "What is a sorting algorithm, and why is sorting important in computer science?",
+//                     "Explain the difference between a greedy algorithm and a dynamic programming approach.",
+//                     "What is the traveling salesman problem?",
+//                     "How would you approach solving a problem using divide and conquer?",
+//                     "What is a graph algorithm, and what are some common graph traversal techniques?"
+//                 ]
+//             },
+//             {
+//                 "title": "Networking",
+//                 "questions": [
+//                     "What is the OSI model, and what are the different layers of the model?",
+//                     "Explain the difference between TCP and UDP protocols.",
+//                     "What is an IP address, and how is it used in networking?",
+//                     "What is DNS (Domain Name System), and how does it work?",
+//                     "What is a VPN, and how does it ensure security in networking?"
+//                 ]
+//             },
+//             {
+//                 "title": "Software Development Life Cycle (SDLC)",
+//                 "questions": [
+//                     "What are the different phases in the Software Development Life Cycle?",
+//                     "What is Agile development, and how does it differ from Waterfall?",
+//                     "Explain the concept of version control and name some tools used for it.",
+//                     "What is continuous integration/continuous deployment (CI/CD)?",
+//                     "What is the purpose of software testing, and what are some common types of testing?"
+//                 ]
+//             },
+//             {
+//                 "title": "Artificial Intelligence",
+//                 "questions": [
+//                     "What is Artificial Intelligence (AI), and how does it differ from Machine Learning?",
+//                     "What are the types of machine learning algorithms?",
+//                     "What is natural language processing (NLP), and how is it applied in AI?",
+//                     "What is deep learning, and how is it used in AI?",
+//                     "What are some ethical concerns related to the use of AI?"
+//                 ]
+//             },
+//             {
+//                 "title": "Cybersecurity",
+//                 "questions": [
+//                     "What is encryption, and why is it important in securing data?",
+//                     "What is the difference between a virus, a worm, and a Trojan horse?",
+//                     "What is a firewall, and how does it protect a network?",
+//                     "What is two-factor authentication (2FA), and why is it important?",
+//                     "What are the main types of cybersecurity threats that organizations face today?"
+//                 ]
+//             }
+//         ]
+//     }
+
+//     // Generate a random 6-character exam code
+//     const generateExamCode = () => {
+//         const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+//         setExamDetails({ ...examDetails, examCode: code });
+//     };
+
+//     const [selectedChapter, setSelectedChapter] = useState("");
+//     const [selectedQuestion, setSelectedQuestion] = useState("");
+//     const [selectedQuestionsList, setSelectedQuestionsList] = useState([]);
+
+//     // Handle chapter change (populate questions dropdown based on selected chapter)
+//     const handleChapterChange = (event) => {
+//         setSelectedChapter(event.target.value);
+//         setSelectedQuestion(""); // Reset question dropdown when chapter changes
+//     };
+
+//     // Handle question change
+//     const handleQuestionChange = (event) => {
+//         setSelectedQuestion(event.target.value);
+//     };
+
+//     // Add the selected question to the list
+//     const addQuestionToList = () => {
+//         if (selectedQuestion && !selectedQuestionsList.includes(selectedQuestion)) {
+//             setSelectedQuestionsList((prevList) => [...prevList, selectedQuestion]);
+//         }
+//     };
+
+//     // Get the questions for the selected chapter
+//     const getQuestionsForSelectedChapter = () => {
+//         const chapter = data.chapters.find(
+//             (chapter) => chapter.title === selectedChapter
+//         );
+//         return chapter ? chapter.questions : [];
+//     };
+
+//     // Add a question for short-answer reference
+//     const addQuestion = () => {
+//         if (!currentQuestion.text || !currentQuestion.answer) {
+//             alert('Both question and reference answer are required!');
+//             return;
+//         }
+//         setQuestions([...questions, currentQuestion]);
+//         setCurrentQuestion({ text: '', answer: '' }); // Reset current question
+//     };
+
+//     // Handle file upload for PDF
+//     const handleFileUpload = (e) => {
+//         setUploadedPdf(e.target.files[0]);
+//     };
+
+//     // Add a question from chapter dropdown
+//     const addChapterQuestion = (chapter) => {
+//         if (chapterQuestions.includes(chapter)) {
+//             alert('This question has already been added!');
+//             return;
+//         }
+//         setChapterQuestions([...chapterQuestions, chapter]);
+//     };
+
+//     // Handle submission of the exam
+//     const handleSubmit = () => {
+//         if (!examDetails.name || !examDetails.description || !examDetails.examCode) {
+//             alert('Please fill in all exam details!');
+//             return;
+//         }
+
+//         const payload = {
+//             ...examDetails,
+//             evaluationMethod,
+//             questions: evaluationMethod === 'reference' ? questions : [],
+//             pdfFile: evaluationMethod === 'pdf' ? uploadedPdf : null,
+//             chapterQuestions: evaluationMethod === 'auto' ? chapterQuestions : [],
+//         };
+
+//         console.log('Exam Data:', payload);
+//         alert('Exam created successfully!');
+//     };
+
+//     return (
+//         <div className='addexam h-4/5 overflow-y-auto '>
+//             <div className="rounded-md m-4 p-4">
+//                 <div className="flex justify-between items-center">
+//                     {/* <h1 className="text-2xl font-bold">{id ? "Update Student" : "Add Student"}</h1> */}
+//                     <h1 className='text-2xl font-bold'>Add Exam</h1>
+//                 </div>
+//             </div>
+//             <form className='max-w-full bg-white rounded-md shadow-md m-4 p-4' >
+//                 <table className='w-full' >
+//                     <tr>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                                 <label>Exam Name:</label>
+//                                 <input
+//                                     type="text"
+//                                     placeholder="Enter exam name"
+//                                     value={examDetails.name}
+//                                     onChange={(e) => setExamDetails({ ...examDetails, name: e.target.value })}
+//                                 />
+//                             </div>
+//                         </td>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                                 <label>Exam Description:</label>
+//                                 <textarea
+//                                     placeholder="Enter exam description"
+//                                     value={examDetails.description}
+//                                     onChange={(e) => setExamDetails({ ...examDetails, description: e.target.value })}
+//                                 />
+//                             </div>
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                             <label>Start Time:</label>
+//         <input
+//           type="time"
+//           value={examDetails.startTime}
+//           onChange={(e) => setExamDetails({ ...examDetails, startTime: e.target.value })}
+//         />
+//                             </div>
+//                         </td>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                             <label>End Time:</label>
+//                     <input
+//                         type="datetime-local"
+//                         value={examDetails.endTime}
+//                         onChange={(e) => setExamDetails({ ...examDetails, endTime: e.target.value })}
+//                     />
+//                             </div>
+//                         </td>
+//                     </tr>
+
+
+//                     <tr>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                             <label>Exam Date:</label>
+//                     <input
+//                         type="date"
+//                         value={examDetails.examDate}
+//                         onChange={(e) => setExamDetails({ ...examDetails, examDate: e.target.value })}
+//                     />
+//                             </div>
+//                         </td>
+//                         <td>
+//                             <div className="flex flex-col gap-2">
+//                             <label>Exam Code:</label>
+//                     <button onClick={generateExamCode}>Generate Code</button>
+//                     <input type="text" readOnly value={examDetails.examCode} />
+//                             </div>
+//                         </td>
+//                     </tr>
+//                 </table>
+//                 {/* Exam Details */}
+
+
+
+
+
+                
+
+               
+//             </form>
+
+//             <h2 className='text-2xl font-bold' >Select Evaluation Method</h2>
+
+//             <span
+//                 className={`w-100 border-b-2 border-black ${evaluationMethod === 'pdf' ? 'active' : ''}`}
+//                 onClick={() => setEvaluationMethod('pdf')}
+//             >
+//                 PDF
+//             </span>
+//             <span
+//                 className={evaluationMethod === 'reference' ? 'active' : ''}
+//                 onClick={() => setEvaluationMethod('reference')}
+//             >
+//                 Reference
+//             </span>
+//             <span
+//                 className={evaluationMethod === 'auto' ? 'active' : ''}
+//                 onClick={() => setEvaluationMethod('auto')}
+//             >
+//                 Auto
+//             </span>
+
+//             {evaluationMethod === 'pdf' && (
+//                 <div>
+//                     <label>Upload PDF:</label>
+//                     <input type="file" accept=".pdf" onChange={handleFileUpload} />
+//                     <h3>Add Questions</h3>
+//                     <div>
+//                         <label>Question:</label>
+//                         <textarea
+//                             placeholder="Enter your question"
+//                             value={''}
+//                             onChange={ }
+//                         />
+//                     </div>
+//                     <button onClick={ }>Add Question</button>
+//                 </div>
+
+//             )}
+
+//             {evaluationMethod === 'reference' && (
+//                 <div>
+//                     <h3>Add Questions</h3>
+//                     <div>
+//                         <label>Question:</label>
+//                         <textarea
+//                             placeholder="Enter your question"
+//                             value={currentQuestion.text}
+//                             onChange={(e) => setCurrentQuestion({ ...currentQuestion, text: e.target.value })}
+//                         />
+//                     </div>
+
+//                     <div>
+//                         <label>Reference Answer:</label>
+//                         <textarea
+//                             placeholder="Enter the reference answer"
+//                             value={currentQuestion.answer}
+//                             onChange={(e) => setCurrentQuestion({ ...currentQuestion, answer: e.target.value })}
+//                         />
+//                     </div>
+//                     <button onClick={addQuestion}>Add Question</button>
+//                     <ul>
+//                         {questions.map((q, index) => (
+//                             <li key={index}>
+//                                 <strong>Q{index + 1}:</strong> {q.text}
+//                                 <br />
+//                                 <em>Answer: {q.answer}</em>
+//                             </li>
+//                         ))}
+//                     </ul>
+//                 </div>
+//             )}
+
+//             {evaluationMethod === 'auto' && (
+//                 <div>
+//                     <label htmlFor="chapter">Select Chapter:</label>
+//                     <select
+//                         id="chapter"
+//                         value={selectedChapter}
+//                         onChange={handleChapterChange}
+//                     >
+//                         <option value="">-- Select a Chapter --</option>
+//                         {data.chapters.map((chapter, index) => (
+//                             <option key={index} value={chapter.title}>
+//                                 {chapter.title}
+//                             </option>
+//                         ))}
+//                     </select>
+
+//                     {/* Question dropdown */}
+//                     {selectedChapter && (
+//                         <div>
+//                             <label htmlFor="question">Select Question:</label>
+//                             <select
+//                                 id="question"
+//                                 value={selectedQuestion}
+//                                 onChange={handleQuestionChange}
+//                             >
+//                                 <option value="">-- Select a Question --</option>
+//                                 {getQuestionsForSelectedChapter().map((question, index) => (
+//                                     <option key={index} value={question}>
+//                                         {question}
+//                                     </option>
+//                                 ))}
+//                             </select>
+//                         </div>
+//                     )}
+
+//                     {/* Add button */}
+//                     {selectedQuestion && (
+//                         <button onClick={addQuestionToList}>Add to Question List</button>
+//                     )}
+
+//                     {/* Display selected questions */}
+//                     <div>
+//                         <h2>Selected Questions</h2>
+//                         <ul>
+//                             {selectedQuestionsList.map((question, index) => (
+//                                 <li key={index}>{question}</li>
+//                             ))}
+//                         </ul>
+//                     </div>
+//                 </div>
+//             )}
+
+
+//             {/* Submit Exam */}
+//             <button onClick={handleSubmit}>Submit Exam</button>
+//         </div>
+//     );
+// }
+
+// export default AddExam;

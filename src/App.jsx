@@ -12,6 +12,8 @@ import AddTeacher from "./pages/admin/components/AddTeacher";
 import AddStudent from "./pages/admin/components/AddStudent";
 import StudentDetail from "./pages/admin/components/StudentDetail";
 import TeacherDetail from "./pages/admin/components/TeacherDetail";
+import ExamPapers from "./pages/teacher/components/ExamPapers";
+import AddExam from "./pages/teacher/components/AddExam";
 
 function App() {
   return (
@@ -29,7 +31,11 @@ function App() {
           <Route path="teacher/edit/:id" element={<AddTeacher />} />
           <Route path="teacher/detail/:id" element={<TeacherDetail />} />
         </Route>
-        <Route path="teacher/*" element={<TeacherDashboard />} />
+        <Route path="teacher/*" element={<TeacherDashboard />}>
+          <Route index element={<Navigate to="exampapers"/>} />
+          <Route path="exampapers" element={<ExamPapers/>} />
+          <Route path="exampapers/add" element={<AddExam/>} />
+        </Route>
         <Route path="student/*" element={<StudentDashboard />} />
       </Route>
     </Routes>
