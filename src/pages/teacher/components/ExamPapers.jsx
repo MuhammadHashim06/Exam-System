@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ExamPapers() {
   const navigate = useNavigate();
-  const [sampleStudents, setSampleStudents] = useState([]); // Initialize with an empty array
+  const [ExamList, setExamList] = useState([]); // Initialize with an empty array
   const [loading, setLoading] = useState(true); // For loading state
   const [error, setError] = useState(""); // For error handling
 
@@ -14,10 +14,12 @@ export default function ExamPapers() {
   }
 
   // Fetch all students from the API
-  async function getallstudents() {
+  async function getallexam() {
     try {
-      const response = await axios.get("http://localhost:5000/getallstudents"); // API endpoint
-      setSampleStudents(response.data.students); // Set the fetched students to state
+      const response = await axios.get("http://localhost:5000/exam"); // API endpoint
+      setExamList(response.data);
+      console.log(response.data);
+       // Set the fetched students to state
     } catch (error) {
       console.error("Error fetching teacher data:", error);
       setError("Failed to fetch students."); // Handle API errors
@@ -28,7 +30,7 @@ export default function ExamPapers() {
 
   // Fetch the students when the component mounts
   useEffect(() => {
-    getallstudents();
+    getallexam();
   }, []); // Empty dependency array to run only once on mount
 
   // Function to navigate to the student detail page
@@ -69,17 +71,17 @@ export default function ExamPapers() {
               </tr>
             </thead>
             <tbody>
-              {sampleStudents.map((student) => (
+              {ExamList.map((exam ,key) => (
                 <tr
-                  key={student.id}
+                  key={key}
                   className="hover:bg-gray-50 hover:cursor-pointer"
-                  onClick={() => StudentDetail(student._id)}
+                  onClick={() => StudentDetail(exam._id)}
                 >
-                  <td className="p-2">{student._id}</td>
-                  <td className="p-2">{student.name}</td>
-                  <td className="p-2">{student.class}</td>
-                  <td className="p-2">{student.user.email}</td>
-                  <td className="p-2">{student.status}</td>
+                  <td className="p-2">{exam._id}</td>
+                  <td className="p-2">{exam.name}</td>
+                  <td className="p-2">{exam.examDate}</td>
+                  <td className="p-2">{exam.examCode}</td>
+                  <td className="p-2">{exam.evaluationMethod}</td>
                 </tr>
               ))}
             </tbody>
