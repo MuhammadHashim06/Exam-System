@@ -14,6 +14,9 @@ import StudentDetail from "./pages/admin/components/StudentDetail";
 import TeacherDetail from "./pages/admin/components/TeacherDetail";
 import ExamPapers from "./pages/teacher/components/ExamPapers";
 import AddExam from "./pages/teacher/components/AddExam";
+import ExamCard from "./pages/student/components/ExamCode";
+import ExamBoard from "./pages/student/components/ExamBoard";
+import ExamCode from "./pages/student/components/ExamCode";
 
 function App() {
   return (
@@ -36,7 +39,10 @@ function App() {
           <Route path="exampapers" element={<ExamPapers/>} />
           <Route path="exampapers/add" element={<AddExam/>} />
         </Route>
-        <Route path="student/*" element={<StudentDashboard />} />
+        <Route path="student/*" element={<StudentDashboard />} >
+        <Route index element={<ExamCode />} />
+        <Route path="examcard/:examcode" element={<ExamCard />} />
+        <Route path="examboard/:examid" element={<ExamBoard />} /></Route>
       </Route>
     </Routes>
   );

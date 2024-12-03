@@ -1,4 +1,3 @@
-import React from 'react'
 import ExamCode from './components/ExamCode'
 import { Route, Routes } from 'react-router-dom'
 import ExamCard from './components/ExamCard'

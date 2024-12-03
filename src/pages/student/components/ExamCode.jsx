@@ -1,66 +1,66 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ExamCode() {
   const [examcode, setexamcode] = useState("");
   const navigate = useNavigate()
-  const exams = [
-    {
-      "examcode": "EXM101",
-      "starttime": "2024-10-15T09:00:00Z",
-      "endtime": "2024-10-15T10:00:00Z",
-      "examDate": "2024-10-15",
-      "examid": "EXAM001",
-      "isconducted": true,
-      "examtitle": "Math Midterm",
-      "creationdatetime": "2024-09-01T14:30:00Z",
-      "teacherid": "TEACHER001"
-    },
-    {
-      "examcode": "EXM102",
-      "starttime": "2024-10-16T11:00:00Z",
-      "endtime": "2024-10-16T12:00:00Z",
-      "examDate": "2024-10-16",
-      "examid": "EXAM002",
-      "isconducted": false,
-      "examtitle": "Science Final",
-      "creationdatetime": "2024-09-05T10:15:00Z",
-      "teacherid": "TEACHER002"
-    },
-    {
-      "examcode": "EXM103",
-      "starttime": "2024-10-17T13:00:00Z",
-      "endtime": "2024-10-17T14:00:00Z",
-      "examDate": "2024-10-17",
-      "examid": "EXAM003",
-      "isconducted": true,
-      "examtitle": "History Quiz",
-      "creationdatetime": "2024-09-10T09:00:00Z",
-      "teacherid": "TEACHER003"
-    },
-    {
-      "examcode": "EXM104",
-      "starttime": "2024-10-18T15:00:00Z",
-      "endtime": "2024-10-18T16:00:00Z",
-      "examDate": "2024-10-18",
-      "examid": "EXAM004",
-      "isconducted": false,
-      "examtitle": "Geography Test",
-      "creationdatetime": "2024-09-12T11:00:00Z",
-      "teacherid": "TEACHER004"
-    },
-    {
-      "examcode": "EXM105",
-      "starttime": "2024-10-19T08:00:00Z",
-      "endtime": "2024-10-19T09:00:00Z",
-      "examDate": "2024-10-19",
-      "examid": "EXAM005",
-      "isconducted": true,
-      "examtitle": "Computer Science Assessment",
-      "creationdatetime": "2024-09-15T13:45:00Z",
-      "teacherid": "TEACHER005"
-    }
-  ];
+  // const exams = [
+  //   {
+  //     "examcode": "EXM101",
+  //     "starttime": "2024-10-15T09:00:00Z",
+  //     "endtime": "2024-10-15T10:00:00Z",
+  //     "examDate": "2024-10-15",
+  //     "examid": "EXAM001",
+  //     "isconducted": true,
+  //     "examtitle": "Math Midterm",
+  //     "creationdatetime": "2024-09-01T14:30:00Z",
+  //     "teacherid": "TEACHER001"
+  //   },
+  //   {
+  //     "examcode": "EXM102",
+  //     "starttime": "2024-10-16T11:00:00Z",
+  //     "endtime": "2024-10-16T12:00:00Z",
+  //     "examDate": "2024-10-16",
+  //     "examid": "EXAM002",
+  //     "isconducted": false,
+  //     "examtitle": "Science Final",
+  //     "creationdatetime": "2024-09-05T10:15:00Z",
+  //     "teacherid": "TEACHER002"
+  //   },
+  //   {
+  //     "examcode": "EXM103",
+  //     "starttime": "2024-10-17T13:00:00Z",
+  //     "endtime": "2024-10-17T14:00:00Z",
+  //     "examDate": "2024-10-17",
+  //     "examid": "EXAM003",
+  //     "isconducted": true,
+  //     "examtitle": "History Quiz",
+  //     "creationdatetime": "2024-09-10T09:00:00Z",
+  //     "teacherid": "TEACHER003"
+  //   },
+  //   {
+  //     "examcode": "EXM104",
+  //     "starttime": "2024-10-18T15:00:00Z",
+  //     "endtime": "2024-10-18T16:00:00Z",
+  //     "examDate": "2024-10-18",
+  //     "examid": "EXAM004",
+  //     "isconducted": false,
+  //     "examtitle": "Geography Test",
+  //     "creationdatetime": "2024-09-12T11:00:00Z",
+  //     "teacherid": "TEACHER004"
+  //   },
+  //   {
+  //     "examcode": "EXM105",
+  //     "starttime": "2024-10-19T08:00:00Z",
+  //     "endtime": "2024-10-19T09:00:00Z",
+  //     "examDate": "2024-10-19",
+  //     "examid": "EXAM005",
+  //     "isconducted": true,
+  //     "examtitle": "Computer Science Assessment",
+  //     "creationdatetime": "2024-09-15T13:45:00Z",
+  //     "teacherid": "TEACHER005"
+  //   }
+  // ];
   
   
   const handleSubmit = (e) => {
