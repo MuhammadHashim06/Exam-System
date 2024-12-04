@@ -78,7 +78,7 @@ export default function TeacherDashboard() {
             </li>
             <li>
               <NavLink
-                to="result"
+                to="results"
                 className={({ isActive }) =>
                   `block w-full px-5 text-left p-2 ${
                     isActive ? "bg-gray-100 text-blue-500" : "hover:bg-gray-200"

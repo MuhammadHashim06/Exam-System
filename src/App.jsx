@@ -17,6 +17,9 @@ import AddExam from "./pages/teacher/components/AddExam";
 import ExamCard from "./pages/student/components/ExamCode";
 import ExamBoard from "./pages/student/components/ExamBoard";
 import ExamCode from "./pages/student/components/ExamCode";
+import Results from "./pages/teacher/components/Results";
+import MarkSheet from "./pages/teacher/components/MarkSheet";
+import ExamDetail from "./pages/teacher/components/ExamDetail";
 
 function App() {
   return (
@@ -38,6 +41,10 @@ function App() {
           <Route index element={<Navigate to="exampapers"/>} />
           <Route path="exampapers" element={<ExamPapers/>} />
           <Route path="exampapers/add" element={<AddExam/>} />
+          <Route path="exampapers/detail/:examID" element={<ExamDetail/>} />
+          <Route path="results" element={<Results/>} />
+          <Route path="results/marksheet/:examID" element={<MarkSheet/>} />
+
         </Route>
         <Route path="student/*" element={<StudentDashboard />} >
         <Route index element={<ExamCode />} />

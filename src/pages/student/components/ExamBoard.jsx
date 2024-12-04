@@ -477,8 +477,8 @@ export default function ExamBoard() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-let userdata = sessionStorage.getItem('userdata')
-  const STUDENT_ID = userdata.data.id; // Simulated student ID
+let userdata = JSON.parse(sessionStorage.getItem('userdata'))
+  const STUDENT_ID = userdata.id; 
   const { examid } = useParams();
 
   // Format time to show two digits
@@ -548,7 +548,7 @@ let userdata = sessionStorage.getItem('userdata')
     };
 
     fetchExamDetails();
-  }, [examid]);
+  }, []);
 
   // Handle answer changes
   const handleChange = (index, value) => {
@@ -579,6 +579,7 @@ let userdata = sessionStorage.getItem('userdata')
       const response = await axios.post(`http://127.0.0.1:8000/api/evaluate`, submissionData);
       console.log("Response from FastAPI:", response.data);
       alert("Exam evaluated and results stored successfully!");
+    
     } catch (err) {
       console.error("Submission error:", err);
       alert("Failed to submit or store the exam.");
