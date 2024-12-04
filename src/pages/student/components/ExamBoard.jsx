@@ -477,8 +477,8 @@ export default function ExamBoard() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const STUDENT_ID = "9012"; // Simulated student ID
+let userdata = sessionStorage.getItem('userdata')
+  const STUDENT_ID = userdata.data.id; // Simulated student ID
   const { examid } = useParams();
 
   // Format time to show two digits
