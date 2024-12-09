@@ -492,7 +492,7 @@ export default function AddStudent() {
                     value={studentData.password}
                     onChange={handleChange}
                     className="w-4/5 bg-slate-50 border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
-                    type="password"
+                    type="text"
                     id="password"
                     required
                   />
