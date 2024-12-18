@@ -664,7 +664,7 @@ let userdata = JSON.parse(sessionStorage.getItem('userdata'))
         </div>
       ) : (
         <div className="flex justify-center items-center h-screen">
-          <p className="text-xl">{isSubmitted ? "Exam submitted successfully!" : "Loading exam details..."}</p>
+          <p className="text-xl">{isSubmitted ? "Exam is being submitted. Don't Close or Switch to other tab" : "Loading exam details..."}</p>
         </div>
       )}
     </div>

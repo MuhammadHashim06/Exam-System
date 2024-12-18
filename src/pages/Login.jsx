@@ -38,7 +38,7 @@ const Login = () => {
       navigate(`/${data.data.role}`);
     } catch (err) {
       setError(err.message);
-      alert(error || "Invalid username or password");
+      alert(error || "Invalid Email or password");
     }
   };
 
@@ -52,7 +52,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700" htmlFor="username">
-              Username
+              Email
             </label>
             <input
               type="text"

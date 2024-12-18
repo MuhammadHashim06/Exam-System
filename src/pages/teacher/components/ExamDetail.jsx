@@ -176,8 +176,8 @@ const ExamDetail = () => {
   }
 
   return (
-    <div className="h-4/5 overflow-y-auto">
-      <div className="min-h-screen bg-gray-100 py-8">
+    <div className="h-4/5 overflow-y-auto ">
+      <div className="min-h-screen bg-gray-100  m-4 p-4">
         <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
           <h1 className="text-3xl font-bold text-center mb-6">Exam Details</h1>
 

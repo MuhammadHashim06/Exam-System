@@ -137,8 +137,8 @@ const MarkSheet = () => {
 
   return (
     <div className="h-4/5 overflow-y-auto" >
-    <div className="min-h-screen bg-white py-8">
-      <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="min-h-screen bg-white m-4 p-4 shadow-lg rounded-lg">
+      <div className="container mx-auto p-6 bg-white ">
         <h1 className="text-3xl font-bold text-center mb-6">MarkSheet</h1>
         <div className="text-center mb-6">
           <p className="text-lg font-semibold text-gray-600">

@@ -65,8 +65,8 @@ export default function ExamPapers() {
               <tr>
                 <td className="p-2">ID</td>
                 <td className="p-2">Name</td>
-                <td className="p-2">Class</td>
-                <td className="p-2">Email</td>
+                <td className="p-2">Exam Date</td>
+                <td className="p-2">Exam Code</td>
                 <td className="p-2">Status</td>
               </tr>
             </thead>
