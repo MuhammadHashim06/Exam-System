@@ -38,18 +38,19 @@ function App() {
           <Route path="teacher/detail/:id" element={<TeacherDetail />} />
         </Route>
         <Route path="teacher/*" element={<TeacherDashboard />}>
-          <Route index element={<Navigate to="exampapers"/>} />
-          <Route path="exampapers" element={<ExamPapers/>} />
-          <Route path="exampapers/add" element={<AddExam/>} />
-          <Route path="exampapers/detail/:examID" element={<ExamDetail/>} />
-          <Route path="results" element={<Results/>} />
-          <Route path="results/marksheet/:examID" element={<MarkSheet/>} />
+          <Route index element={<Navigate to="exampapers" />} />
+          <Route path="exampapers" element={<ExamPapers />} />
+          <Route path="exampapers/add" element={<AddExam />} />
+          <Route path="exampapers/edit/:examID" element={<AddExam mode="edit" />} />
+          <Route path="exampapers/detail/:examID" element={<ExamDetail />} />
+          <Route path="results" element={<Results />} />
+          <Route path="results/marksheet/:examID" element={<MarkSheet />} />
 
         </Route>
         <Route path="student/*" element={<StudentDashboard />} >
-        <Route index element={<ExamCode />} />
-        <Route path="examcard/:examcode" element={<ExamCard />} />
-        <Route path="examboard/:examid" element={<ExamBoard />} /></Route>
+          <Route index element={<ExamCode />} />
+          <Route path="examcard/:examcode" element={<ExamCard />} />
+          <Route path="examboard/:examid" element={<ExamBoard />} /></Route>
       </Route>
     </Routes>
   );

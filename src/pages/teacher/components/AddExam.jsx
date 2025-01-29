@@ -1671,8 +1671,11 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
+  const { examID } = useParams();
+  const navigate = useNavigate();
   const [examDetails, setExamDetails] = useState({
     name: "",
     description: "",
@@ -1695,22 +1698,36 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
   ];
 
   // Load existing exam data when in edit mode
+  // useEffect(() => {
+  //   if (mode === "edit" && existingExamData) {
+  //     setExamDetails({
+  //       name: existingExamData.name || "",
+  //       description: existingExamData.description || "",
+  //       examDate: existingExamData.examDate || "",
+  //       startTime: existingExamData.startTime || "",
+  //       endTime: existingExamData.endTime || "",
+  //       examCode: existingExamData.examCode || "",
+  //       totalMarks: existingExamData.totalMarks || 0,
+  //       evaluationType: existingExamData.evaluationType || "pdf",
+  //       evaluationData: existingExamData.evaluationData || []
+  //     });
+  //   }
+  // }, [mode, existingExamData]);
   useEffect(() => {
-    if (mode === "edit" && existingExamData) {
-      setExamDetails({
-        name: existingExamData.name || "",
-        description: existingExamData.description || "",
-        examDate: existingExamData.examDate || "",
-        startTime: existingExamData.startTime || "",
-        endTime: existingExamData.endTime || "",
-        examCode: existingExamData.examCode || "",
-        totalMarks: existingExamData.totalMarks || 0,
-        evaluationType: existingExamData.evaluationType || "pdf",
-        evaluationData: existingExamData.evaluationData || []
-      });
-    }
-  }, [mode, existingExamData]);
+    const fetchExamData = async () => {
+      if (mode === "edit" && examID) {
+        try {
+          const response = await axios.get(`http://localhost:5000/exam/${examID}`);
+          setExamDetails(response.data);
+        } catch (error) {
+          console.error("Error fetching exam data:", error);
+          setErrorMessage("Failed to fetch exam data");
+        }
+      }
+    };
 
+    fetchExamData();
+  }, [mode, examID]);
   const updateExamDetail = (key, value) => {
     setExamDetails((prev) => ({ ...prev, [key]: value }));
   };
@@ -1752,41 +1769,87 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [selectedChapter, setSelectedChapter] = useState("");
 
+  // const handleSubmit = async () => {
+  //   // Validation
+  //   if (
+  //     !examDetails.name ||
+  //     !examDetails.description ||
+  //     !examDetails.examDate ||
+  //     !examDetails.startTime ||
+  //     !examDetails.endTime ||
+  //     !examDetails.examCode ||
+  //     examDetails.totalMarks <= 0 ||
+  //     examDetails.evaluationData.length === 0
+  //   ) {
+  //     setErrorMessage("Please fill in all required fields and add at least one question.");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/addexam",
+  //       examDetails,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     console.log("Exam successfully created:", response.data);
+  //     alert(`${mode === "add" ? "Exam created" : "Exam updated"} successfully!`);
+
+  //     // Call the onSubmit callback
+  //     if (onSubmit) onSubmit(examDetails);
+
+  //     // Reset form only in add mode
+  //     if (mode === "add") {
+  //       setExamDetails({
+  //         name: "",
+  //         description: "",
+  //         examDate: "",
+  //         startTime: "",
+  //         endTime: "",
+  //         examCode: "",
+  //         totalMarks: 0,
+  //         evaluationType: "pdf",
+  //         evaluationData: []
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating exam:", error);
+  //     setErrorMessage("An error occurred while creating the exam.");
+  //   }
+  // };
   const handleSubmit = async () => {
-    // Validation
-    if (
-      !examDetails.name ||
-      !examDetails.description ||
-      !examDetails.examDate ||
-      !examDetails.startTime ||
-      !examDetails.endTime ||
-      !examDetails.examCode ||
-      examDetails.totalMarks <= 0 ||
-      examDetails.evaluationData.length === 0
-    ) {
-      setErrorMessage("Please fill in all required fields and add at least one question.");
-      return;
-    }
-
     try {
-      const response = await axios.post(
-        "http://localhost:5000/addexam",
-        examDetails,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Exam successfully created:", response.data);
-      alert(`${mode === "add" ? "Exam created" : "Exam updated"} successfully!`);
-
-      // Call the onSubmit callback
-      if (onSubmit) onSubmit(examDetails);
-
-      // Reset form only in add mode
-      if (mode === "add") {
+      let response;
+      
+      if (mode === "edit") {
+        response = await axios.put(
+          // `http://localhost:5000/exam/update/${examID}`,
+          `http://localhost:5000/updateexam`,
+          examDetails,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        alert("Exam updated successfully!");
+        navigate(`/teacher/exampapers/detail/${examID}`); // Navigate back to exam details
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/addexam",
+          examDetails,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        alert("Exam created successfully!");
+        // Reset form only in add mode
         setExamDetails({
           name: "",
           description: "",
@@ -1799,19 +1862,20 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
           evaluationData: []
         });
       }
+
+      console.log(`Exam ${mode === "edit" ? "updated" : "created"}:`, response.data);
     } catch (error) {
-      console.error("Error creating exam:", error);
-      setErrorMessage("An error occurred while creating the exam.");
+      console.error(`Error ${mode === "edit" ? "updating" : "creating"} exam:`, error);
+      setErrorMessage(`An error occurred while ${mode === "edit" ? "updating" : "creating"} the exam.`);
     }
   };
-
   return (
     <div className="addexam h-4/5 overflow-y-auto">
-      <div className="rounded-md m-4 p-4">
-        <h1 className="text-2xl font-bold">
-          {mode === "add" ? "Add Exam" : "Edit Exam"}
-        </h1>
-      </div>
+    <div className="rounded-md m-4 p-4">
+      <h1 className="text-2xl font-bold">
+        {mode === "add" ? "Add New Exam" : "Edit Exam"}
+      </h1>
+    </div>
 
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
@@ -2007,14 +2071,14 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
       </div>
 
       <div className="m-4">
-        <button 
-          onClick={handleSubmit}
-          className="bg-blue-600 text-white p-2 rounded w-full"
-        >
-          {mode === "add" ? "Add Exam" : "Update Exam"}
-        </button>
-      </div>
+      <button 
+        onClick={handleSubmit}
+        className="bg-blue-600 text-white p-2 rounded w-full"
+      >
+        {mode === "add" ? "Create Exam" : "Update Exam"}
+      </button>
     </div>
+  </div>
   );
 }
 

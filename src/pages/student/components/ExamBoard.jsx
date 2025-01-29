@@ -574,10 +574,12 @@ let userdata = JSON.parse(sessionStorage.getItem('userdata'))
         marks: question.marks,
       })),
     };
-  
+    console.log("Submitted Data:",submissionData)
+
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/evaluate`, submissionData);
-      console.log("Response from FastAPI:", response.data);
+      const response = await axios.post(`http://localhost:5000/answers/answers`, submissionData);
+      console.log("Response from FastAPI:", response);
+      // console.log("Submitted Data:",submissionData)
       alert("Exam evaluated and results stored successfully!");
     
     } catch (err) {
