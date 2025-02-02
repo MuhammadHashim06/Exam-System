@@ -477,8 +477,8 @@ export default function ExamBoard() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-let userdata = JSON.parse(sessionStorage.getItem('userdata'))
-  const STUDENT_ID = userdata.id; 
+  let userdata = JSON.parse(sessionStorage.getItem('userdata'))
+  const STUDENT_ID = userdata.id;
   const { examid } = useParams();
 
   // Format time to show two digits
@@ -561,12 +561,13 @@ let userdata = JSON.parse(sessionStorage.getItem('userdata'))
   // Submit exam
   const handleSubmit = async () => {
     if (isSubmitted) return;
-  
+
     setIsSubmitted(true);
-  
+    const userData = JSON.parse(sessionStorage.getItem('userdata'))
     const submissionData = {
       examID: currentExam._id,
       studentID: STUDENT_ID,
+      studentName: userData.name,
       submissionTime: new Date().toISOString(),
       answers: currentExam.evaluationData.map((question, index) => ({
         question: question.question,
@@ -574,21 +575,21 @@ let userdata = JSON.parse(sessionStorage.getItem('userdata'))
         marks: question.marks,
       })),
     };
-    console.log("Submitted Data:",submissionData)
+    console.log("Submitted Data:", submissionData)
 
     try {
       const response = await axios.post(`http://localhost:5000/answers/answers`, submissionData);
       console.log("Response from FastAPI:", response);
       // console.log("Submitted Data:",submissionData)
       alert("Exam evaluated and results stored successfully!");
-    
+
     } catch (err) {
       console.error("Submission error:", err);
       alert("Failed to submit or store the exam.");
       setIsSubmitted(false);
     }
   };
-  
+
 
   // Render loading state
   if (loading) {
