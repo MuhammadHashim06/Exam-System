@@ -78,6 +78,18 @@ export default function TeacherDashboard() {
             </li>
             <li>
               <NavLink
+                to="examanswers"
+                className={({ isActive }) =>
+                  `block w-full px-5 text-left p-2 ${
+                    isActive ? "bg-gray-100 text-blue-500" : "hover:bg-gray-200"
+                  }`
+                }
+              >
+                <i className="fas fa-graduation-cap mx-2"></i> Exam Answers
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="results"
                 className={({ isActive }) =>
                   `block w-full px-5 text-left p-2 ${
