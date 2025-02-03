@@ -14,9 +14,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-
     try {
       const response = await fetch('http://localhost:5000/login', { // Adjust URL as needed
         method: 'POST',
@@ -31,7 +28,6 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       // Assuming the response includes user details and a role
       sessionStorage.setItem('userdata', JSON.stringify(data.data));

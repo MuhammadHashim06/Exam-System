@@ -500,6 +500,7 @@ export default function ExamBoard() {
         const response = await axios.get(`http://localhost:5000/exam/${examid}`);
         const examDetail = response.data;
         setCurrentExam(examDetail);
+        console.log(examDetail);
 
         // Initialize answers array with empty strings
         setAnswers(examDetail.evaluationData.map(() => ""));

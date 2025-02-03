@@ -78,7 +78,7 @@ export default function ExamAnswer() {
                   onClick={() => ExamDetail(exam._id)}
                 >
                   <td className="p-2">{exam._id}</td>
-                  <td className="p-2">{exam.name}</td>
+                  <td className="p-2">{exam.examName}</td>
                   <td className="p-2">{exam.createdAt}</td>
                   <td className="p-2">{exam.totalSubmissions}</td>
                   <td className="p-2">{exam.status}</td>
