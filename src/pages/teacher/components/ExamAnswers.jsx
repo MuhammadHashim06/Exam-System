@@ -34,7 +34,7 @@ export default function ExamAnswer() {
   }, []); // Empty dependency array to run only once on mount
 
   // Function to navigate to the student detail page
-  function ExamDetail(id) {
+  function AnswerDetail(id) {
     console.log("Student detail: ", id);
     navigate(`detail/${id}`);
   }
@@ -75,7 +75,7 @@ export default function ExamAnswer() {
                 <tr
                   key={key}
                   className="hover:bg-gray-50 hover:cursor-pointer"
-                  onClick={() => ExamDetail(exam._id)}
+                  onClick={() => AnswerDetail(exam._id)}
                 >
                   <td className="p-2">{exam._id}</td>
                   <td className="p-2">{exam.examName}</td>
