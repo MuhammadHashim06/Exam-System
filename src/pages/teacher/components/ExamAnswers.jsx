@@ -75,7 +75,7 @@ export default function ExamAnswer() {
                 <tr
                   key={key}
                   className="hover:bg-gray-50 hover:cursor-pointer"
-                  onClick={() => AnswerDetail(exam._id)}
+                  onClick={() => AnswerDetail(exam.examID)}
                 >
                   <td className="p-2">{exam._id}</td>
                   <td className="p-2">{exam.examName}</td>

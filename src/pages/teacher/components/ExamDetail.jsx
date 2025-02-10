@@ -161,7 +161,6 @@ const ExamDetail = () => {
 
   // Handle update exam
   const handleUpdateExam = () => {
-    alert("Update functionality is triggered. Redirecting to update form...");
     navigate(`/teacher/exampapers/edit/${examID}`); // Navigate to an update form or edit page
   };
 

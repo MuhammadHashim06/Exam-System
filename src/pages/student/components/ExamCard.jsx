@@ -535,6 +535,12 @@
 
 
 
+
+
+
+
+
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -552,7 +558,18 @@ export default function ExamCard() {
     "You cannot move to other windows",
     "Any unauthorized action will be considered cheating",
   ];
-
+  // const enableFullScreen = () => {
+  //   const element = document.documentElement;
+  //   if (element.requestFullscreen) {
+  //     element.requestFullscreen();
+  //   } else if (element.mozRequestFullScreen) {
+  //     element.mozRequestFullScreen();
+  //   } else if (element.webkitRequestFullscreen) {
+  //     element.webkitRequestFullscreen();
+  //   } else if (element.msRequestFullscreen) {
+  //     element.msRequestFullscreen();
+  //   }
+  // };
   // Fetch exam details from the API
   const fetchExamDetails = async () => {
     try {
@@ -642,6 +659,7 @@ export default function ExamCard() {
 
   const handleStartExam = () => {
     if (isExamActive()) {
+      // enableFullScreen();
       navigate(`/student/examboard/${currentExam._id}`);
     }
   };

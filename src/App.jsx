@@ -47,7 +47,7 @@ function App() {
           <Route path="exampapers/detail/:examID" element={<ExamDetail />} />
 
           <Route path="examanswers" element={<ExamAnswers />} />
-          <Route path="examanswers/detail" element={<AnswerDetail />} />
+          <Route path="examanswers/detail/:examID" element={<AnswerDetail />} />
 
           <Route path="results" element={<Results />} />
           <Route path="results/marksheet/:examID" element={<MarkSheet />} />
