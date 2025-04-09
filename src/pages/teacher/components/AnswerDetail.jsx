@@ -31,13 +31,15 @@ export default function AnswerDetail() {
       alert("Please upload a file first.");
       return;
     }
+  
     setLoading(true);
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("examID", examID);
-
+    formData.append("exam_pdf", file); // Correct field name
+    formData.append("exam_id", examID); // Correct field name
+    formData.append("submissions_json", JSON.stringify(examData)); // Include this!
+  
     try {
-      const response = await axios.post("http://localhost:5000/calculate-result", formData, {
+      const response = await axios.post("http://localhost:8000/api/examine", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Result calculated successfully!");
@@ -49,6 +51,7 @@ export default function AnswerDetail() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="p-4 bg-white rounded-md shadow-md m-4">

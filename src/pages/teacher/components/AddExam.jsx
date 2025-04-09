@@ -1963,7 +1963,7 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-2">Evaluation Type:</label>
+            {/* <label className="mb-2">Evaluation Type:</label>
             <select
               value={examDetails.evaluationType}
               onChange={(e) => updateExamDetail("evaluationType", e.target.value)}
@@ -1972,7 +1972,7 @@ function AddExam({ mode = "add", existingExamData = null, onSubmit }) {
               <option value="pdf">PDF</option>
               <option value="reference">Reference</option>
               <option value="auto">Automatic</option>
-            </select>
+            </select> */}
           </div>
         </div>
       </form>

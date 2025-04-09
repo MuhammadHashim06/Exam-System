@@ -96,28 +96,27 @@
 
 // export default MarkSheet;
 
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const MarkSheet = () => {
-  const { examID } = useParams(); // Extract examID from the route parameters
-  const [examData, setExamData] = useState(null);
+  const { examID } = useParams();
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch exam data from the API
     const fetchExamData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/results/exam/${examID}` // Replace with your actual API endpoint
+          `http://localhost:5000/results/exam/${examID}`
         );
-        setExamData(response.data);
-        setLoading(false);
+        setStudents(response.data);
       } catch (err) {
         console.error(err);
         setError("Failed to fetch exam data.");
+      } finally {
         setLoading(false);
       }
     };
@@ -135,46 +134,61 @@ const MarkSheet = () => {
     );
   }
 
-  return (
-    <div className="h-4/5 overflow-y-auto" >
-    <div className="min-h-screen bg-white m-4 p-4 shadow-lg rounded-lg">
-      <div className="container mx-auto p-6 bg-white ">
-        <h1 className="text-3xl font-bold text-center mb-6">MarkSheet</h1>
-        <div className="text-center mb-6">
-          <p className="text-lg font-semibold text-gray-600">
-            <strong>Exam ID:</strong> {examData.examID}
-          </p>
-          <p className="text-lg font-semibold text-gray-600">
-            <strong>Total Marks:</strong> {examData.totalMarks}
-          </p>
-        </div>
+  // Calculate total marks across all students (if needed)
+  const totalMarks = students.reduce(
+    (acc, student) => acc + (student.totalObtainedMarks || 0),
+    0
+  );
 
-        <table className="table-auto w-full border-collapse border border-gray-200 bg-white">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 px-4 py-2 bg-gray-100">
-                Student ID
-              </th>
-              <th className="border border-gray-300 px-4 py-2 bg-gray-100">
-                Obtained Marks
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {examData.students.map((student) => (
-              <tr key={student._id}>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {student.studentID}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {student.totalObtainMarks}
-                </td>
+  return (
+    <div className="h-4/5 overflow-y-auto">
+      <div className="min-h-screen bg-white m-4 p-4 shadow-lg rounded-lg">
+        <div className="container mx-auto p-6 bg-white">
+          <h1 className="text-3xl font-bold text-center mb-6">MarkSheet</h1>
+          <div className="text-center mb-6">
+            <p className="text-lg font-semibold text-gray-600">
+              <strong>Exam ID:</strong> {examID}
+            </p>
+            <p className="text-lg font-semibold text-gray-600">
+              <strong>Total Students:</strong> {students.length}
+            </p>
+            <p className="text-lg font-semibold text-gray-600">
+              <strong>Combined Obtained Marks:</strong> {totalMarks}
+            </p>
+          </div>
+
+          <table className="table-auto w-full border-collapse border border-gray-200 bg-white">
+            <thead>
+              <tr>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                  Student Name
+                </th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                  Student ID
+                </th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                  Obtained Marks
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {students.map((student) => (
+                <tr key={student._id}>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {student.studentName}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {student.studentID}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {student.totalObtainedMarks}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
