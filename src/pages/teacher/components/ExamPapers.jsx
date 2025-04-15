@@ -19,7 +19,7 @@ export default function ExamPapers() {
       const response = await axios.get("http://localhost:5000/exam"); // API endpoint
       setExamList(response.data);
       console.log(response.data);
-       // Set the fetched students to state
+      // Set the fetched students to state
     } catch (error) {
       console.error("Error fetching teacher data:", error);
       setError("Failed to fetch students."); // Handle API errors
@@ -67,11 +67,11 @@ export default function ExamPapers() {
                 <td className="p-2">Name</td>
                 <td className="p-2">Exam Date</td>
                 <td className="p-2">Exam Code</td>
-                <td className="p-2">Status</td>
+                {/* <td className="p-2">Status</td> */}
               </tr>
             </thead>
             <tbody>
-              {ExamList.map((exam ,key) => (
+              {ExamList.map((exam, key) => (
                 <tr
                   key={key}
                   className="hover:bg-gray-50 hover:cursor-pointer"
@@ -79,9 +79,13 @@ export default function ExamPapers() {
                 >
                   <td className="p-2">{exam._id}</td>
                   <td className="p-2">{exam.name}</td>
-                  <td className="p-2">{exam.examDate}</td>
+                  {/* <td className="p-2">{exam.examDate}</td> */}
+                  <td className="p-2">
+                    {exam.examDate ? new Date(exam.examDate).toLocaleString() : "N/A"}
+                  </td>
+
                   <td className="p-2">{exam.examCode}</td>
-                  <td className="p-2">{exam.evaluationMethod}</td>
+                  {/* <td className="p-2">{exam.evaluationMethod}</td> */}
                 </tr>
               ))}
             </tbody>

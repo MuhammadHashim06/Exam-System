@@ -189,7 +189,9 @@ const ExamDetail = () => {
             </p>
             <p className="text-lg font-semibold text-gray-700">
               <strong>Exam Date:</strong>{" "}
-              {new Date(examData.examDate.$date).toLocaleDateString()}
+              {/* {new Date(examData.examDate.$date).toLocaleDateString()} */}
+              {new Date(examData.examDate).toLocaleDateString()}
+
             </p>
             <p className="text-lg font-semibold text-gray-700">
               <strong>Start Time:</strong> {examData.startTime}
