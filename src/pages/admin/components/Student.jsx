@@ -96,64 +96,219 @@
 //   );
 // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import axios from "axios";
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// export default function Student() {
+//   const navigate = useNavigate();
+//   const [sampleStudents, setSampleStudents] = useState([]); // Initialize with an empty array
+//   const [loading, setLoading] = useState(true); // For loading state
+//   const [error, setError] = useState(""); // For error handling
+
+//   // Function to navigate to the Add Student page
+//   function handlesubmit() {
+//     navigate("add");
+//   }
+
+//   // Fetch all students from the API
+//   async function getallstudents() {
+//     try {
+//       const response = await axios.get("http://localhost:5000/getallstudents"); // API endpoint
+//       setSampleStudents(response.data.students); // Set the fetched students to state
+//     } catch (error) {
+//       console.error("Error fetching teacher data:", error);
+//       setError("Failed to fetch students."); // Handle API errors
+//     } finally {
+//       setLoading(false); // Set loading to false after API call
+//     }
+//   }
+
+//   // Fetch the students when the component mounts
+//   useEffect(() => {
+//     getallstudents();
+//   }, []); // Empty dependency array to run only once on mount
+
+//   // Function to navigate to the student detail page
+//   function StudentDetail(id) {
+//     console.log("Student detail: ", id);
+//     navigate(`detail/${id}`);
+//   }
+
+//   // Render the loading state, error state, or the student list
+//   return (
+//     <>
+//       <div className="rounded-md m-4 p-4">
+//         <div className="flex justify-between items-center">
+//           <h1 className="text-2xl font-bold">Students</h1>
+//           <button
+//             className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
+//             onClick={handlesubmit}
+//           >
+//             Add Student
+//           </button>
+//         </div>
+//       </div>
+
+//       {loading ? (
+//         <div className="text-center text-gray-500">Loading students...</div> // Show loading text while fetching data
+//       ) : error ? (
+//         <div className="text-center text-red-500">{error}</div> // Show error message if API call fails
+//       ) : (
+//         <div className="bg-white rounded-md shadow-md m-4 p-2">
+//           <table className="w-full">
+//             <thead className="font-bold bg-gray-200">
+//               <tr>
+//                 <td className="p-2">ID</td>
+//                 <td className="p-2">Name</td>
+//                 <td className="p-2">Class</td>
+//                 <td className="p-2">Email</td>
+//                 <td className="p-2">Status</td>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {sampleStudents.map((student) => (
+//                 <tr
+//                   key={student.id}
+//                   className="hover:bg-gray-50 hover:cursor-pointer"
+//                   onClick={() => StudentDetail(student._id)}
+//                 >
+//                   <td className="p-2">{student._id}</td>
+//                   <td className="p-2">{student.name}</td>
+//                   <td className="p-2">{student.class}</td>
+//                   <td className="p-2">{student.user.email}</td>
+//                   <td className="p-2">{student.status}</td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Student() {
   const navigate = useNavigate();
-  const [sampleStudents, setSampleStudents] = useState([]); // Initialize with an empty array
-  const [loading, setLoading] = useState(true); // For loading state
-  const [error, setError] = useState(""); // For error handling
+  const [sampleStudents, setSampleStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // Function to navigate to the Add Student page
   function handlesubmit() {
     navigate("add");
   }
 
-  // Fetch all students from the API
   async function getallstudents() {
     try {
-      const response = await axios.get("http://localhost:5000/getallstudents"); // API endpoint
-      setSampleStudents(response.data.students); // Set the fetched students to state
+      const response = await axios.get("http://localhost:5000/getallstudents");
+      setSampleStudents(response.data.students);
+      setFilteredStudents(response.data.students); // Initialize filtered list
     } catch (error) {
-      console.error("Error fetching teacher data:", error);
-      setError("Failed to fetch students."); // Handle API errors
+      console.error("Error fetching student data:", error);
+      setError("Failed to fetch students.");
     } finally {
-      setLoading(false); // Set loading to false after API call
+      setLoading(false);
     }
   }
 
-  // Fetch the students when the component mounts
   useEffect(() => {
     getallstudents();
-  }, []); // Empty dependency array to run only once on mount
+  }, []);
 
-  // Function to navigate to the student detail page
+  useEffect(() => {
+    const filtered = sampleStudents.filter((student) => {
+      const nameMatch = student.name
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const classMatch = student.class
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const emailMatch = student.user?.email
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      return nameMatch || classMatch || emailMatch;
+    });
+    setFilteredStudents(filtered);
+  }, [searchTerm, sampleStudents]);
+
   function StudentDetail(id) {
-    console.log("Student detail: ", id);
     navigate(`detail/${id}`);
   }
 
-  // Render the loading state, error state, or the student list
   return (
     <>
       <div className="rounded-md m-4 p-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center flex-wrap gap-4">
           <h1 className="text-2xl font-bold">Students</h1>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
-            onClick={handlesubmit}
-          >
-            Add Student
-          </button>
+          <div className="flex gap-2 items-center">
+            <input
+              type="text"
+              placeholder="Search by name, class, or email"
+              className="border px-3 py-2 rounded-md shadow-sm w-64"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
+              onClick={handlesubmit}
+            >
+              Add Student
+            </button>
+          </div>
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center text-gray-500">Loading students...</div> // Show loading text while fetching data
+        <div className="text-center text-gray-500">Loading students...</div>
       ) : error ? (
-        <div className="text-center text-red-500">{error}</div> // Show error message if API call fails
+        <div className="text-center text-red-500">{error}</div>
       ) : (
         <div className="bg-white rounded-md shadow-md m-4 p-2">
           <table className="w-full">
@@ -167,19 +322,26 @@ export default function Student() {
               </tr>
             </thead>
             <tbody>
-              {sampleStudents.map((student) => (
+              {filteredStudents.map((student) => (
                 <tr
-                  key={student.id}
+                  key={student._id}
                   className="hover:bg-gray-50 hover:cursor-pointer"
                   onClick={() => StudentDetail(student._id)}
                 >
                   <td className="p-2">{student._id}</td>
                   <td className="p-2">{student.name}</td>
                   <td className="p-2">{student.class}</td>
-                  <td className="p-2">{student.user.email}</td>
+                  <td className="p-2">{student.user?.email}</td>
                   <td className="p-2">{student.status}</td>
                 </tr>
               ))}
+              {filteredStudents.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center text-gray-500 py-4">
+                    No matching students found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

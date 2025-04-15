@@ -558,19 +558,7 @@ export default function ExamCard() {
     "You cannot move to other windows",
     "Any unauthorized action will be considered cheating",
   ];
-  // const enableFullScreen = () => {
-  //   const element = document.documentElement;
-  //   if (element.requestFullscreen) {
-  //     element.requestFullscreen();
-  //   } else if (element.mozRequestFullScreen) {
-  //     element.mozRequestFullScreen();
-  //   } else if (element.webkitRequestFullscreen) {
-  //     element.webkitRequestFullscreen();
-  //   } else if (element.msRequestFullscreen) {
-  //     element.msRequestFullscreen();
-  //   }
-  // };
-  // Fetch exam details from the API
+
   const fetchExamDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/exambycode/${examcode}`);

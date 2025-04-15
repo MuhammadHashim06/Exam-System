@@ -220,6 +220,7 @@ export default function Results() {
         if (!acc[examID]) {
           acc[examID] = {
             examID,
+            examName : result.examName,
             totalMarks: 0,
             students: [],
             highestMarks: marks,
@@ -243,6 +244,7 @@ export default function Results() {
       }));
 
       setGroupedExams(examsArray);
+      
     } catch (error) {
       console.error("Error fetching results:", error);
       setError("Failed to fetch results.");
@@ -253,6 +255,8 @@ export default function Results() {
 
   function ResultDetail(examID) {
     console.log("Exam detail: ", examID);
+    console.log("Exam Detail",GroupedExams);
+    
     navigate(`marksheet/${examID}`);
   }
 
@@ -274,6 +278,8 @@ export default function Results() {
             <thead className="font-bold bg-gray-200">
               <tr>
                 <td className="p-2">Exam ID</td>
+                <td className="p-2">Exam Name</td>
+
                 <td className="p-2">Total Students</td>
                 <td className="p-2">Average Marks</td>
                 <td className="p-2">Highest Marks</td>
@@ -288,6 +294,8 @@ export default function Results() {
                   onClick={() => ResultDetail(exam.examID)}
                 >
                   <td className="p-2">{exam.examID}</td>
+                  <td className="p-2">{exam.examName || "N/A"}</td>
+
                   <td className="p-2">{exam.students.length}</td>
                   <td className="p-2">{exam.averageMarks}</td>
                   <td className="p-2">{exam.highestMarks}</td>
