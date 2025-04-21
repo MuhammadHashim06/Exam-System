@@ -279,7 +279,6 @@ export default function Results() {
               <tr>
                 <td className="p-2">Exam ID</td>
                 <td className="p-2">Exam Name</td>
-
                 <td className="p-2">Total Students</td>
                 <td className="p-2">Average Marks</td>
                 <td className="p-2">Highest Marks</td>
@@ -295,6 +294,7 @@ export default function Results() {
                 >
                   <td className="p-2">{exam.examID}</td>
                   <td className="p-2">{exam.examName || "N/A"}</td>
+
 
                   <td className="p-2">{exam.students.length}</td>
                   <td className="p-2">{exam.averageMarks}</td>
